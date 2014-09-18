@@ -5,7 +5,7 @@ use Module::Build;
 
 my $builder = Module::Build->new(
     module_name         => 'CurrConv',
-    license             => 'Artistic_2_0',
+    license             => 'artistic_2',
     dist_author         => q{Dariusz Piwowarski <piwowarskidariusz@gmail.com>},
     dist_version_from   => 'lib/CurrConv.pm',
     release_status      => 'stable',
