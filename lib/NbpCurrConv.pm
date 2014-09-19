@@ -1,4 +1,4 @@
-package CurrConv;
+package NbpCurrConv;
 
 use 5.006;
 use strict;
@@ -11,7 +11,7 @@ binmode STDOUT, ":utf8";
 
 =head1 NAME
 
-CurrConv - The great new CurrConv!
+NbpCurrConv
 
 =head1 VERSION
 
