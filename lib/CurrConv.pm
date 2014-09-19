@@ -73,11 +73,6 @@ sub convert {
   return $amount;
 }
 
-sub test {
-  my $self = shift;
-  
-}
-
 sub _init {
   my $self = shift;
   my $xml_file = $self->_get_file('http://nbp.pl/kursy/xml/LastA.xml');
