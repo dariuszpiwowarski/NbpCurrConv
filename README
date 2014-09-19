@@ -1,4 +1,4 @@
-CurrConv
+NbpCurrConv
 
 The README is used to introduce the module and provide instructions on
 how to install the module, any machine dependencies it may have (for
@@ -26,21 +26,21 @@ SUPPORT AND DOCUMENTATION
 After installing, you can find documentation for this module with the
 perldoc command.
 
-    perldoc CurrConv
+    perldoc NbpCurrConv
 
 You can also look for information at:
 
     RT, CPAN's request tracker (report bugs here)
-        http://rt.cpan.org/NoAuth/Bugs.html?Dist=CurrConv
+        http://rt.cpan.org/NoAuth/Bugs.html?Dist=NbpCurrConv
 
     AnnoCPAN, Annotated CPAN documentation
-        http://annocpan.org/dist/CurrConv
+        http://annocpan.org/dist/NbpCurrConv
 
     CPAN Ratings
-        http://cpanratings.perl.org/d/CurrConv
+        http://cpanratings.perl.org/d/NbpCurrConv
 
     Search CPAN
-        http://search.cpan.org/dist/CurrConv/
+        http://search.cpan.org/dist/NbpCurrConv/
 
 
 LICENSE AND COPYRIGHT

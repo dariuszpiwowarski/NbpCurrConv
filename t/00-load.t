@@ -10,4 +10,4 @@ BEGIN {
     use_ok( 'CurrConv' ) || print "Bail out!\n";
 }
 
-diag( "Testing CurrConv $CurrConv::VERSION, Perl $], $^X" );
+diag( "Testing CurrConv $NbpCurrConv::VERSION, Perl $], $^X" );

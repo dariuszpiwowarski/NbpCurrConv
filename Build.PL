@@ -4,10 +4,10 @@ use warnings FATAL => 'all';
 use Module::Build;
 
 my $builder = Module::Build->new(
-    module_name         => 'CurrConv',
+    module_name         => 'NbpCurrConv',
     license             => 'artistic_2',
     dist_author         => q{Dariusz Piwowarski <piwowarskidariusz@gmail.com>},
-    dist_version_from   => 'lib/CurrConv.pm',
+    dist_version_from   => 'lib/NbpCurrConv.pm',
     release_status      => 'stable',
     configure_requires => {
         'Module::Build' => 0,
@@ -19,7 +19,7 @@ my $builder = Module::Build->new(
         #'ABC'              => 1.6,
         #'Foo::Bar::Module' => 5.0401,
     },
-    add_to_cleanup     => [ 'CurrConv-*' ],
+    add_to_cleanup     => [ 'NbpCurrConv-*' ],
     create_makefile_pl => 'traditional',
 );
 
