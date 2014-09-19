@@ -49,19 +49,39 @@ sub new {
   my $class = shift;
   my $self = {};
   bless $self, $class;
-  $self->_set_xml_url('http://nbp.pl/kursy/xml/LastA.xml');
+  $self->_init();
   return $self;
 }
 
-sub _set_xml_url {
+sub convert {
   my $self = shift;
-  my $url = shift;
-  $self->{xml_url} = $url;
+  my ($from, $to, $amount) = @_;
+
+  die 'No PLN passed as from or to' unless ($from eq 'PLN' || $to eq 'PLN');
+  die 'The amount has a strange value' unless $amount =~ /^\d+(?:\.\d+)?$/;
+  return $amount if ($from eq $to);
+
+  my $curr_to_find = $from eq 'PLN' ? $to : $from;
+  my $curr_data = $self->{data}->{currencies}->{$curr_to_find};
+  die "Couldn't find $curr_to_find currency!" if !defined($curr_data);
+  if ($from eq $curr_to_find){
+    $amount *= $curr_data->{exchange_rate};
+  }else{
+    $amount /= $curr_data->{exchange_rate};
+  }
+
+  return $amount;
 }
 
-sub _get_xml_url {
+sub test {
   my $self = shift;
-  return $self->{xml_url};
+  
+}
+
+sub _init {
+  my $self = shift;
+  my $xml_file = $self->_get_file('http://nbp.pl/kursy/xml/LastA.xml');
+  $self->{data} = $self->_parse_xml($xml_file);
 }
 
 sub _parse_xml {
@@ -71,16 +91,11 @@ sub _parse_xml {
   my $data = {};
   $data->{date} = $xml->{data_publikacji};
   foreach my $elem (@{$xml->{pozycja}}){
+    $elem->{kurs_sredni} =~ s/\,/\./;
     $data->{currencies}->{$elem->{kod_waluty}} = { multipler => $elem->{przelicznik}, exchange_rate => $elem->{kurs_sredni},
                                                    name => $elem->{nazwa_waluty} };
   }
   return $data;
-}
-
-sub test {
-  my $self = shift;
-  my $body = $self->_get_file($self->{xml_url});
-  print Dumper($self->_parse_xml($body));
 }
 
 sub _get_file {
