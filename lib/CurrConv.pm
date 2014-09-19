@@ -3,6 +3,11 @@ package CurrConv;
 use 5.006;
 use strict;
 use warnings FATAL => 'all';
+use LWP::Simple;
+use XML::Simple;
+use Data::Dumper;
+use Carp;
+binmode STDOUT, ":utf8";
 
 =head1 NAME
 
@@ -39,7 +44,51 @@ if you don't export anything, such as for a purely object-oriented module.
 
 =cut
 
-sub function1 {
+
+sub new {
+  my $class = shift;
+  my $self = {};
+  bless $self, $class;
+  $self->_set_xml_url('http://nbp.pl/kursy/xml/LastA.xml');
+  return $self;
+}
+
+sub _set_xml_url {
+  my $self = shift;
+  my $url = shift;
+  $self->{xml_url} = $url;
+}
+
+sub _get_xml_url {
+  my $self = shift;
+  return $self->{xml_url};
+}
+
+sub _parse_xml {
+  my $self = shift;
+  my $body = shift;
+  my $xml = XMLin($body);
+  my $data = {};
+  $data->{date} = $xml->{data_publikacji};
+  foreach my $elem (@{$xml->{pozycja}}){
+    $data->{currencies}->{$elem->{kod_waluty}} = { multipler => $elem->{przelicznik}, exchange_rate => $elem->{kurs_sredni},
+                                                   name => $elem->{nazwa_waluty} };
+  }
+  return $data;
+}
+
+sub test {
+  my $self = shift;
+  my $body = $self->_get_file($self->{xml_url});
+  print Dumper($self->_parse_xml($body));
+}
+
+sub _get_file {
+  my $self = shift;
+  my $url = shift;
+  my $content = get($url);
+  die "Couldn't get: $url" unless defined $content;
+  return $content;
 }
 
 =head2 function2
